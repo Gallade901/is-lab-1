@@ -1,0 +1,40 @@
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wildfly:
+    build:
+      context: ./IS-lab-1-back
+    ports:
+      - "21751:21751"
+      - "9990:9990"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=admin
+    depends_on:
+      db:
+        condition: service_healthy
+
+  front:
+    image: is-lab1-front
+    build:
+      context: ./is-lab1-front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - wildfly
+

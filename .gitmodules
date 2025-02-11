@@ -1,0 +1,6 @@
+[submodule "IS-lab-1-back"]
+	path = IS-lab-1-back
+	url = https://Gallade901/IS-lab-1-back.git
+[submodule "is-lab-1-front"]
+	path = is-lab-1-front
+	url = https://github.com/Gallade901/is-lab-1-front.git
