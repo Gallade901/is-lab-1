@@ -30,9 +30,8 @@ services:
         condition: service_healthy
 
   front:
-    image: is-lab1-front
     build:
-      context: ./is-lab1-front
+      context: ./is-lab-1-front
     ports:
       - "3000:3000"
     depends_on:
